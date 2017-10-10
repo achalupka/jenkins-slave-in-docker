@@ -1,0 +1,36 @@
+version: '3.2'
+services:
+  jenkins-slave:
+    image: jenkinsslave_jenkins-slave
+    hostname: jenkins-slave-in-docker
+    ports:
+      - target: 22
+        published: 9022
+        protocol: tcp
+        mode: host
+    volumes:
+      - /etc/ssh/authorized-keys/jenkins.pub:/jenkins.pub:ro
+      - /srv/docker-jenkins:/srv/jenkins
+      - /srv/jenkins/workspace:/srv/jenkins/workspace
+      - /srv/jenkins/.ssh/:/host-ssh/:ro
+      - ./ssh:/etc/ssh
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      DOCKER_GID: $DOCKER_GID
+    restart: always
+    secrets:
+      - db_secrets
+  docker-system-prune:
+    image: softonic/docker-system-prune
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      mode: global
+      restart_policy:
+        condition: any
+        delay: 3600s
+        max_attempts: 3650
+
+secrets:
+  db_secrets:
+    external: true

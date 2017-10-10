@@ -26,14 +26,18 @@ RUN set -x \
 ADD jenkins.pub /
 COPY ssh.sh /ssh.sh
 
-RUN addgroup jenkins-slave && \
-    adduser -S -G jenkins-slave -H -h /jenkins-slave -D -s /bin/bash jenkins-slave && \
-    install -d -o jenkins-slave -g jenkins-slave /jenkins-slave && \
-    install -d -m 700 -o jenkins-slave -g jenkins-slave /jenkins-slave/.ssh && \
-    cat /jenkins.pub >> /jenkins-slave/.ssh/authorized_keys && \
-    chown -R jenkins-slave:jenkins-slave /jenkins-slave/.ssh/ && \
-    chmod 600 /jenkins-slave/.ssh/authorized_keys && \
-    passwd -u jenkins-slave
+ENV JUSER jenkins
+ENV JENKINS_HOME /srv/jenkins
+
+RUN mkdir -p $JENKINS_HOME && addgroup $JUSER && \
+    adduser -S -G $JUSER -H -h $JENKINS_HOME -D -s /bin/bash $JUSER && \
+    install -d -o $JUSER -g $JUSER $JENKINS_HOME && \
+    install -d -m 700 -o $JUSER -g $JUSER $JENKINS_HOME/.ssh && \
+    chown -R $JUSER:$JUSER $JENKINS_HOME/.ssh/ && \
+    touch $JENKINS_HOME/.ssh/authorized_keys && \
+    chmod 600 $JENKINS_HOME/.ssh/authorized_keys && \
+    passwd -u $JUSER && \
+    mv $JENKINS_HOME/.ssh /jenkins-ssh
 
 # SSH server
 

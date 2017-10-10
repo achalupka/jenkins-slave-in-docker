@@ -12,11 +12,12 @@ if [ ! "$(groups jenkins|grep docker)" ]; then
   adduser $JUSER docker
 fi
 
-if [ ! "$(ls -A $JENKINS_HOME/.ssh)" ]; then
-  mv /jenkins-ssh $JENKINS_HOME/.ssh
-fi
+#if [ ! "$(ls -A $JENKINS_HOME/.ssh)" ]; then
+#  mv /jenkins-ssh $JENKINS_HOME/.ssh
+#fi
 
-cp /host-ssh/* $JENKINS_HOME/.ssh/
+#cp /host-ssh/* $JENKINS_HOME/.ssh/
+mkdir -p $JENKINS_HOME/.ssh/
 chown -R $JUSER:$JUSER $JENKINS_HOME
 
 if [ ! "$(ls -A /etc/ssh)" ]; then

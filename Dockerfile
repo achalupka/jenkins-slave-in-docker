@@ -35,8 +35,8 @@ RUN mkdir -p $JENKINS_HOME && addgroup $JUSER && \
     chown -R $JUSER:$JUSER $JENKINS_HOME/.ssh/ && \
     touch $JENKINS_HOME/.ssh/authorized_keys && \
     chmod 600 $JENKINS_HOME/.ssh/authorized_keys && \
-    passwd -u $JUSER && \
-    mv $JENKINS_HOME/.ssh /jenkins-ssh
+    passwd -u $JUSER
+#    mv $JENKINS_HOME/.ssh /jenkins-ssh
 
 # SSH server
 

@@ -3,14 +3,15 @@
 ## Prerequisites
 
 - docker daemon 17.04 listening to /var/run/docker.sock
-- docker group 
-- docker-compose 1.12
+- docker group
 - jenkins master setup with public key available
 
 ## Run
 
-Put public key to `/etc/ssh/authorized-keys/jenkins.pub`
-
+1. Put public key to `/etc/ssh/authorized-keys/jenkins.pub`
+2. Copy `deploy.yml` and `run.sh` from `example/` directory to your home directory.
+3. Create docker secrets (e.g. `db_secrets`).
+4. Deploy:
 ```
 sudo ./run.sh
 ```

@@ -23,7 +23,6 @@ RUN set -x \
 
 # Jenkins ssh user
 
-ADD jenkins.pub /
 COPY ssh.sh /ssh.sh
 
 ENV JUSER jenkins

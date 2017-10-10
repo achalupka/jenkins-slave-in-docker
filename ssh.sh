@@ -37,19 +37,20 @@ if ! ls /etc/ssh/ssh_host_* 1> /dev/null 2>&1; then
 fi
 
 # Fix permissions, if writable
-if [ -w ~/.ssh ]; then
-    chown root:root ~/.ssh && chmod 700 ~/.ssh/
-fi
-cat /jenkins.pub >> ~/.ssh/authorized_keys
-if [ -w ~/.ssh/authorized_keys ]; then
-    chown root:root ~/.ssh/authorized_keys
-    chmod 600 ~/.ssh/authorized_keys
-fi
-if [ -w /etc/authorized_keys ]; then
-    chown root:root /etc/authorized_keys
-    chmod 755 /etc/authorized_keys
-    find /etc/authorized_keys/ -type f -exec chmod 644 {} \;
-fi
+#if [ -w ~/.ssh ]; then
+#    chown root:root ~/.ssh && chmod 700 ~/.ssh/
+#fi
+#if [ -w ~/.ssh/authorized_keys ]; then
+#    chown root:root ~/.ssh/authorized_keys
+#    chmod 600 ~/.ssh/authorized_keys
+#fi
+#if [ -w /etc/authorized_keys ]; then
+#    chown root:root /etc/authorized_keys
+#    chmod 755 /etc/authorized_keys
+#    find /etc/authorized_keys/ -type f -exec chmod 644 {} \;
+#fi
+
+cat /jenkins.pub >> $JENKINS_HOME/.ssh/authorized_keys
 
 # Add users if SSH_USERS=user:uid:gid set
 if [ -n "${SSH_USERS}" ]; then
@@ -69,7 +70,7 @@ if [ -n "${SSH_USERS}" ]; then
     done
 else
     # Warn if no authorized_keys
-    if [ ! -e ~/.ssh/authorized_keys ] && [ ! $(ls -A /etc/authorized_keys) ]; then
+    if [ ! -e $JENKINS_HOME/.ssh/authorized_keys ] && [ ! $(ls -A /etc/authorized_keys) ]; then
       echo "WARNING: No SSH authorized_keys found!"
     fi
 fi

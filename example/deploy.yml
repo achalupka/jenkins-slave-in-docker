@@ -1,7 +1,7 @@
 version: '3.2'
 services:
   jenkins-slave:
-    image: jenkinsslave_jenkins-slave
+    image: 'sizmek/jenkins-slave-in-docker'
     hostname: jenkins-slave-in-docker
     ports:
       - target: 22
@@ -17,9 +17,13 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       DOCKER_GID: $DOCKER_GID
-    restart: always
     secrets:
       - db_secrets
+    deploy:
+      mode: global
+      restart_policy:
+        condition: any
+
   docker-system-prune:
     image: softonic/docker-system-prune
     volumes:

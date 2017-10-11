@@ -12,13 +12,14 @@ services:
       - /etc/ssh/authorized-keys/jenkins.pub:/jenkins.pub:ro
       - /srv/docker-jenkins:/srv/jenkins
       - /srv/jenkins/workspace:/srv/jenkins/workspace
-      - /srv/jenkins/.ssh/:/host-ssh/:ro
       - ./ssh:/etc/ssh
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       DOCKER_GID: $DOCKER_GID
     secrets:
       - db_secrets
+      - jenkins_slave_ssh_config
+      - jenkins_slave_id_rsa
     deploy:
       mode: global
       restart_policy:
@@ -37,4 +38,12 @@ services:
 
 secrets:
   db_secrets:
+    external: true
+  jenkins_slave_id_rsa:
+    # private key to the git repository
+    external: true
+  jenkins_slave_ssh_config:
+    # turn off host key verification,
+    # set username-host mapping
+    # for git repos
     external: true

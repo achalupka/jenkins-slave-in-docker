@@ -17,6 +17,9 @@ fi
 #fi
 
 #cp /host-ssh/* $JENKINS_HOME/.ssh/
+#cp /run/secrets/jenkins_slave_knowh_hosts $JENKINS_HOME/.ssh/known_hosts
+cp /run/secrets/jenkins_slave_id_rsa $JENKINS_HOME/.ssh/id_rsa
+cp /run/secrets/jenkins_slave_ssh_config $JENKINS_HOME/.ssh/config
 mkdir -p $JENKINS_HOME/.ssh/
 chown -R $JUSER:$JUSER $JENKINS_HOME
 

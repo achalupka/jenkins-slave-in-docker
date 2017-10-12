@@ -12,7 +12,6 @@ services:
       - /etc/ssh/authorized-keys/jenkins.pub:/jenkins.pub:ro
       - /srv/docker-jenkins:/srv/jenkins
       - /srv/jenkins/workspace:/srv/jenkins/workspace
-      - ./ssh:/etc/ssh
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       DOCKER_GID: $DOCKER_GID

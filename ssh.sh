@@ -12,15 +12,13 @@ if [ ! "$(groups jenkins|grep docker)" ]; then
   adduser $JUSER docker
 fi
 
-#if [ ! "$(ls -A $JENKINS_HOME/.ssh)" ]; then
-#  mv /jenkins-ssh $JENKINS_HOME/.ssh
-#fi
-
-#cp /host-ssh/* $JENKINS_HOME/.ssh/
-#cp /run/secrets/jenkins_slave_knowh_hosts $JENKINS_HOME/.ssh/known_hosts
+# ssh keys and config
+# config should skip hosts key verification (known_hosts should not be created)
+mkdir -p $JENKINS_HOME/.ssh/
 cp /run/secrets/jenkins_slave_id_rsa $JENKINS_HOME/.ssh/id_rsa
 cp /run/secrets/jenkins_slave_ssh_config $JENKINS_HOME/.ssh/config
-mkdir -p $JENKINS_HOME/.ssh/
+chmod 600 $JENKINS_HOME/.ssh/*
+
 chown -R $JUSER:$JUSER $JENKINS_HOME
 
 if [ ! "$(ls -A /etc/ssh)" ]; then

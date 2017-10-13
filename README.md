@@ -1,5 +1,7 @@
 # Jenkins slave
 
+[![](http://dockeri.co/image/sizmek/jenkins-slave-in-docker)](https://registry.hub.docker.com/u/sizmek/jenkins-slave-in-docker/)
+
 ## Prerequisites
 
 - docker daemon 17.04 listening to /var/run/docker.sock

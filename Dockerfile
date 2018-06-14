@@ -1,4 +1,4 @@
-FROM docker/compose:1.12.0
+FROM docker/compose:1.19.0
 
 ENV LANG C.UTF-8
 

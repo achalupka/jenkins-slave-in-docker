@@ -15,7 +15,8 @@ ENV JAVA_HOME /usr/lib/jvm/java-1.7-openjdk/jre
 ENV PATH $PATH:/usr/lib/jvm/java-1.7-openjdk/jre/bin:/usr/lib/jvm/java-1.7-openjdk/bin
 
 ENV JAVA_VERSION 7u121
-ENV JAVA_ALPINE_VERSION 7.121.2.6.8-r0
+ENV JAVA_ALPINE_VERSION 7.131.2.6.9-r1
+
 RUN set -x \
         && apk add --no-cache \
                 openjdk7-jre-base="$JAVA_ALPINE_VERSION" \

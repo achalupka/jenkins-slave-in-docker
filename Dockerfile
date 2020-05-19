@@ -1,26 +1,6 @@
-FROM docker/compose:1.19.0
+FROM adoptopenjdk/openjdk8
 
 ENV LANG C.UTF-8
-
-# Java runtime
-
-RUN { \
-                echo '#!/bin/sh'; \
-                echo 'set -e'; \
-                echo; \
-                echo 'dirname "$(dirname "$(readlink -f "$(which javac || which java)")")"'; \
-        } > /usr/local/bin/docker-java-home \
-        && chmod +x /usr/local/bin/docker-java-home
-ENV JAVA_HOME /usr/lib/jvm/java-1.7-openjdk/jre
-ENV PATH $PATH:/usr/lib/jvm/java-1.7-openjdk/jre/bin:/usr/lib/jvm/java-1.7-openjdk/bin
-
-ENV JAVA_VERSION 7u121
-ENV JAVA_ALPINE_VERSION 7.131.2.6.9-r1
-
-RUN set -x \
-        && apk add --no-cache \
-                openjdk7-jre-base="$JAVA_ALPINE_VERSION" \
-        && [ "$JAVA_HOME" = "$(docker-java-home)" ]
 
 # Jenkins ssh user
 
